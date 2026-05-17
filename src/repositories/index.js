@@ -1,15 +1,11 @@
-import pkg from 'pg';
+import { pool } from '../utils/database.js';
 import { validateTable } from '../middlewares/Validasi.js';
 
 
-const { Pool } = pkg;
 
 //Repo
 class Repositories {
-  constructor(){
-    this.pool = new Pool;
-  }
-
+  
   async create(tabel, body){
     validateTable(tabel)
     const keys = Object.keys(body);
@@ -22,7 +18,7 @@ class Repositories {
       values
     }
 
-    const res = await this.pool.query(kueri)
+    const res = await pool.query(kueri)
     return res.rows[0];
   }
   async read(tabel, id=''){
@@ -32,12 +28,12 @@ class Repositories {
         text: `SELECT * FROM ${tabel} WHERE id = $1`,
         values: [id]
       };
-      const result = await this.pool.query(query);
+      const result = await pool.query(query);
       return result.rows[0];
     }
 
     const query = `SELECT * FROM ${tabel}`;
-    const result = await this.pool.query(query);
+    const result = await pool.query(query);
     return result.rows;
   }
 
@@ -52,7 +48,7 @@ class Repositories {
       values:[...values, id]
     }
 
-    const res = await this.pool.query(kueri)
+    const res = await pool.query(kueri)
     return res.rows[0]
     
   }
@@ -67,7 +63,7 @@ class Repositories {
       values: [id]
     };
 
-    const result = await this.pool.query(query);
+    const result = await pool.query(query);
     return result.rows[0];
   }
 }
