@@ -14,9 +14,8 @@ export const up = (pgm) => {
   pgm.createTable('companies', {
     id:{ type: 'VARCHAR(50)', primaryKey: true,},
     name:{  type: 'TEXT', notNull: true },
-    description:{  type: 'TEXT', notNull: true },
-    address:{  type: 'TEXT', notNull: true },
-    contact:{  type: 'TEXT', notNull: true },
+    location:{  type: 'TEXT', notNull: true },
+    description:{  type: 'TEXT', notNull: true, default:'' },
   })
 };
 

@@ -9,9 +9,10 @@ export const ApiServices = {
     const data = { ...body}
     data.id = nanoid(16)
 
-    data.password || (data.password = await bcrypt.hash(data.password,10));
-
-    return await Repositories.create(path, data)
+    if (data.password) { data.password =await bcrypt.hash(data.password,10); }
+    const hasil = await Repositories.create(path, data)
+    delete hasil.password;
+    return hasil 
   },
   
   Search: async (tabel, id)=>{

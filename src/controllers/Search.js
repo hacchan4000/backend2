@@ -1,3 +1,4 @@
+import NotFoundError from "../exceptions/notFoundError.js";
 import { ApiServices } from "../services/api.js";
 import response from "../utils/response.js";
 
@@ -7,7 +8,11 @@ export const searchId = async (req, res, next) => {
     const path = req.path.split('/')[1]
     const hasil = await ApiServices.Search(path,id)
 
-    return response(res, 201,`berhasil nyari ${path}`,hasil)
+    if (!hasil) {
+      return next(new NotFoundError('Gagal mencari user'))
+    }
+
+    return response(res, 200,`berhasil nyari ${path}`,hasil)
 
   } catch (error) {
     next(error)

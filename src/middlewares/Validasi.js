@@ -4,7 +4,6 @@ export const userSchema = Joi.object({
   username: Joi.string().alphanum().min(3).max(40).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
-  repeatPass: Joi.string().required().valid(Joi.ref('password'))
 });
 
 export const authSchema = Joi.object({

@@ -12,9 +12,10 @@ export const shorthands = undefined;
 export const up = (pgm) => {
   pgm.createTable('users', {
     id:{ type: 'VARCHAR(50)', primaryKey: true},
-    username:{ type: 'TEXT', notNull: true},
+    name:{ type: 'TEXT', notNull: true},
     email:{  type: 'TEXT', unique: true, notNull: true },
     password:{  type: 'TEXT', notNull: true  },
+    role:{  type: 'TEXT', notNull: true  },
   })
 };
 

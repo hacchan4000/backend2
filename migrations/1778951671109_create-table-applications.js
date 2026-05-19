@@ -13,8 +13,7 @@ export const up = (pgm) => {
     id:{ type: 'VARCHAR(50)', primaryKey: true},
     user_id:{ type: 'VARCHAR(50)', notNull: true ,references: 'users(id)', onDelete: 'CASCADE',},
     job_id:{ type: 'VARCHAR(50)', notNull: true ,references: 'jobs(id)', onDelete: 'CASCADE',},
-    status:{  type: 'TEXT'},
-    applied_at:{type: 'TIMESTAMP', default: pgm.func('CURRENT_TIMESTAMP'), notNull: true,}
+    status:{  type: 'TEXT', notNull: true},
   })
 };
 

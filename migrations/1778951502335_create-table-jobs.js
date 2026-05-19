@@ -12,11 +12,18 @@ export const shorthands = undefined;
 export const up = (pgm) => {
   pgm.createTable('jobs',{
     id:{ type: 'VARCHAR(50)', primaryKey: true},
-    category_id:{ type: 'VARCHAR(50)', notNull: true ,references: 'categories(id)', onDelete: 'CASCADE',},
     company_id:{ type: 'VARCHAR(50)', notNull: true ,references: 'companies(id)', onDelete: 'CASCADE',},
+    category_id:{ type: 'VARCHAR(50)', notNull: true ,references: 'categories(id)', onDelete: 'CASCADE',},
     title:{  type: 'TEXT', notNull: true },
-    salary:{  type: 'TEXT', notNull: true },
-    status:{  type: 'TEXT', notNull: true },
+    description:{  type: 'TEXT', notNull: true },
+    job_type: {type: 'TEXT', notNull: true},
+    experience_level: {type: 'TEXT', notNull: true},
+    location_type: {type: 'TEXT', notNull: true},
+    location_city: {type: 'TEXT' },
+    salary_min: { type: 'INTEGER' },
+    salary_max: { type: 'INTEGER' },
+    is_salary_visible: {type: 'BOOLEAN', default: true},
+    status: {type: 'TEXT', notNull: true},
   })
 };
 
