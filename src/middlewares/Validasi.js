@@ -1,22 +1,24 @@
 import Joi from "joi"
 
 export const userSchema = Joi.object({
-  username: Joi.string().alphanum().min(3).max(40).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
 });
+export const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
 
-export const authSchema = Joi.object({
+export const putAuthenticationPayloadSchema = Joi.object({
+  refreshToken: Joi.string().required(),
+});
+export const deleteAuthenticationPayloadSchema = Joi.object({
+  refreshToken: Joi.string().required(),
+});
 
-})
-/**
- * (schema) => (req, res, next) itu bisa diartikan kaya:
- * function ValidateData(schema) {
-    return function(req, res, next) {}
-  } 
-    jd perlu param schema
- */
-export const ValidateUser = (schema) => (req, res, next) => {
+
+
+export const Validate = (schema) => (req, res, next) => {
  
   const { error, value } = schema.validate(req.body, {
     abortEarly: false,
@@ -30,9 +32,8 @@ export const ValidateUser = (schema) => (req, res, next) => {
   next() // fungsi untuk lanjut ke tahap berikutnya kalo g error di middleware
 }
 
-export const ValidateAuth = (schema) => (req, res ,next) => {
-  
-}
+
+
 
 export const validateTable = (tabel) => {
   const allowedTables = [

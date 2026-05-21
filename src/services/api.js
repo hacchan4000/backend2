@@ -15,8 +15,8 @@ export const ApiServices = {
     return hasil 
   },
   
-  Search: async (tabel, id)=>{
-    return await Repositories.read(tabel, id)
+  Search: async (tabel, data)=>{
+    return await Repositories.read(tabel, data)
   },
   List: async (tabel)=>{
     return await Repositories.read(tabel)

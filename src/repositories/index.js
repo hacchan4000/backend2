@@ -1,6 +1,6 @@
 import { pool } from '../utils/database.js';
 import { validateTable } from '../middlewares/Validasi.js';
-
+import bcrypt from 'bcrypt'
 
 
 //Repo
@@ -23,6 +23,28 @@ class Repositories {
   }
   async read(tabel, id=''){
     validateTable(tabel)
+    if (typeof(id) === 'object') {
+      const { email, password } = id
+      const query = {
+        text: `SELECT * FROM ${tabel} WHERE email = $1`,
+        values: [email]
+      };
+      const result = await pool.query(query);
+      const user = result.rows[0];
+
+      if (!user) {
+        return null;
+      }
+      const verifyPass = await bcrypt.compare(password,user.password);
+
+      if (!verifyPass) {
+        return null;
+      }
+
+      return user.id;
+    }
+
+
     if (id) {
       const query = {
         text: `SELECT * FROM ${tabel} WHERE id = $1`,
@@ -54,6 +76,17 @@ class Repositories {
   }
   async delete(tabel, id){
     validateTable(tabel)
+    
+    if (tabel === 'authentications') {
+       const query = {
+        text: `
+          DELETE FROM ${tabel}
+          WHERE token = $1
+        `,values: [id]
+      };
+      
+      await pool.query(query);
+    }
     const query = {
       text: `
         DELETE FROM ${tabel}

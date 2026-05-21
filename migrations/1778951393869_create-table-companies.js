@@ -15,7 +15,7 @@ export const up = (pgm) => {
     id:{ type: 'VARCHAR(50)', primaryKey: true,},
     name:{  type: 'TEXT', notNull: true },
     location:{  type: 'TEXT', notNull: true },
-    description:{  type: 'TEXT', notNull: true, default:'' },
+    description:{  type: 'TEXT' },
   })
 };
 

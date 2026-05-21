@@ -10,6 +10,7 @@ import { documentController } from '../controllers/document.js';
 import { authController } from '../controllers/auth.js';
 import { searchId, searchIdComplex } from '../controllers/Search.js';
 import { bookmarkController } from '../controllers/bookmark.js';
+import { deleteAuthenticationPayloadSchema, Validate } from '../middlewares/Validasi.js';
 
 
 const privateRoutes = express.Router()
@@ -54,6 +55,6 @@ privateRoutes.post('/documents', authMiddleware ,documentController) // → Uplo
 privateRoutes.delete('/documents/:id', authMiddleware ,documentController)
 
 // Auth
-privateRoutes.delete('/authentications', authController.logout)
+privateRoutes.delete('/authentications',Validate(deleteAuthenticationPayloadSchema),authController.logout)
 
 export default privateRoutes;

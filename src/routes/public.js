@@ -1,5 +1,5 @@
 import express from "express"
-import { userSchema, ValidateUser } from "../middlewares/Validasi.js"
+import { loginSchema, putAuthenticationPayloadSchema, userSchema, Validate } from "../middlewares/Validasi.js"
 import { registerController } from "../controllers/registers.js"
 import { searchId, searchIdComplex } from "../controllers/Search.js"
 import { listAll } from "../controllers/List.js"
@@ -13,7 +13,7 @@ const publicRoutes = express.Router()
 //Routes
 
 // Users
-publicRoutes.post('/users', ValidateUser(userSchema), registerController)
+publicRoutes.post('/users', Validate(userSchema), registerController)
 publicRoutes.get('/users/:id', searchId)
 
 //companies
@@ -31,8 +31,8 @@ publicRoutes.get('/jobs/company/:companyId', searchIdComplex)
 publicRoutes.get('/jobs/category/:categoryId', searchIdComplex)
 
 //auth
-publicRoutes.post('/authentications', authController.login)
-publicRoutes.put('/authentications', authController.refresh)
+publicRoutes.post('/authentications', Validate(loginSchema), authController.login)
+publicRoutes.put('/authentications', Validate(putAuthenticationPayloadSchema), authController.refresh)
 
 //docs
 publicRoutes.get('/documents', listAll)
