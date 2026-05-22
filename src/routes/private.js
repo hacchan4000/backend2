@@ -10,8 +10,8 @@ import { documentController } from '../controllers/document.js';
 import { authController } from '../controllers/auth.js';
 import { searchId, searchIdComplex } from '../controllers/Search.js';
 import { bookmarkController } from '../controllers/bookmark.js';
-import { deleteAuthenticationPayloadSchema, Validate } from '../middlewares/Validasi.js';
-
+import { Validate } from '../middlewares/Validasi.js';
+import { categorySchema, companySchema, deleteAuthenticationPayloadSchema, jobSchema } from '../models/schemas.js';
 
 const privateRoutes = express.Router()
 
@@ -21,17 +21,17 @@ privateRoutes.get('/profile/applications', authMiddleware, profileController) //
 privateRoutes.get('/profile/bookmarks', authMiddleware, profileController) // → Get my bookmarks
 
 // Companies
-privateRoutes.post('/companies', authMiddleware, registerController) // → Create company
+privateRoutes.post('/companies', authMiddleware, Validate(companySchema), registerController) // → Create company
 privateRoutes.put('/companies/:id', authMiddleware, updateController) // → Update company
 privateRoutes.delete('/companies/:id', authMiddleware, deleteController) // → Delete company
 
 // Categories
-privateRoutes.post('/categories', authMiddleware, registerController) // → Create category
+privateRoutes.post('/categories', authMiddleware, Validate(categorySchema), registerController) // → Create category
 privateRoutes.put('/categories/:id', authMiddleware, updateController) // → Update category
 privateRoutes.delete('/categories/:id', authMiddleware, deleteController) // → Delete category
 
 // Jobs
-privateRoutes.post('/jobs', authMiddleware, registerController) // → Create job
+privateRoutes.post('/jobs', authMiddleware, Validate(jobSchema), registerController) // → Create job
 privateRoutes.put('/jobs/:id', authMiddleware, updateController) // → Update job
 privateRoutes.delete('/jobs/:id', authMiddleware, deleteController) // → Delete job
 

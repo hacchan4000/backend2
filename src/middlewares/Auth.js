@@ -9,7 +9,7 @@ export const authMiddleware = async(req, res, next) => {
   try {
     const header = req.headers.authorization;
     
-    if (!header) { return res.status(401).json({ status: 'fail',message: 'Token tidak ditemukan' })}
+    if (!header) { return res.status(401).json({ status: 'failed',message: 'Token tidak ditemukan' })}
 
     const user = await TokenManager.verifyToken(header.split('Bearer ')[1], process.env.ACCESS_TOKEN_KEY)
     req.user = user;

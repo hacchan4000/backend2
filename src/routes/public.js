@@ -1,9 +1,11 @@
 import express from "express"
-import { loginSchema, putAuthenticationPayloadSchema, userSchema, Validate } from "../middlewares/Validasi.js"
+import { loginSchema, putAuthenticationPayloadSchema, userSchema } from "../models/schemas.js"
 import { registerController } from "../controllers/registers.js"
 import { searchId, searchIdComplex } from "../controllers/Search.js"
 import { listAll } from "../controllers/List.js"
 import { authController } from "../controllers/auth.js"
+import { Validate } from "../middlewares/Validasi.js"
+
 
 /**
  * flow app

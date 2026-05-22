@@ -16,6 +16,9 @@ export const ApiServices = {
   },
   
   Search: async (tabel, data)=>{
+    if (typeof(data) === 'object') {
+      return await Repositories.readSpecific(tabel, data)
+    }
     return await Repositories.read(tabel, data)
   },
   List: async (tabel)=>{

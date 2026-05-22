@@ -1,21 +1,4 @@
-import Joi from "joi"
-
-export const userSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
-});
-export const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-});
-
-export const putAuthenticationPayloadSchema = Joi.object({
-  refreshToken: Joi.string().required(),
-});
-export const deleteAuthenticationPayloadSchema = Joi.object({
-  refreshToken: Joi.string().required(),
-});
-
+import response from "../utils/response.js"
 
 
 export const Validate = (schema) => (req, res, next) => {
@@ -26,7 +9,9 @@ export const Validate = (schema) => (req, res, next) => {
     stripUnknown: true
   })
 
-  if (error) { return next(error) }
+  if (error) { 
+    return response(res, 400, 'failed to validate', null)
+   }
   req.validate = value
 
   next() // fungsi untuk lanjut ke tahap berikutnya kalo g error di middleware
@@ -43,7 +28,8 @@ export const validateTable = (tabel) => {
   'jobs',
   'documents',
   'applications',
-  'bookmarks'
+  'bookmarks',
+  'authentications'
 ];
   if (!allowedTables.includes(tabel)) {
     throw new Error('Invalid table');

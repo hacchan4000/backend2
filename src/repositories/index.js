@@ -59,6 +59,17 @@ class Repositories {
     return result.rows;
   }
 
+  async readSpecific(tabel, data){
+    const { kolom, id } = data
+  
+    const query = {
+        text: `SELECT * FROM ${tabel} WHERE ${kolom} = ${id}`,
+        values: [id]
+      };
+      const result = await pool.query(query);
+      return result.rows;
+  }
+
   async update(tabel, id, body){
     validateTable(tabel)
     const keys = Object.keys(body);
