@@ -96,8 +96,24 @@ class Repositories {
         `,values: [id]
       };
       
-      await pool.query(query);
+      const result = await pool.query(query);
+      return result.rows[0];
     }
+
+    if (tabel === 'bookmarks' && typeof(id) === 'object') {
+      const { user_id, job_id } = id
+      const query = {
+        text: `
+          DELETE FROM ${tabel}
+          WHERE user_id = $1 AND job_id = $2
+          RETURNING id
+        `,values: [user_id, job_id]
+      };
+      const hasil = await pool.query(query);
+      return hasil.rows[0]
+    }
+
+    //normal delete
     const query = {
       text: `
         DELETE FROM ${tabel}
