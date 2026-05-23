@@ -15,11 +15,6 @@ import { categorySchema, companySchema, deleteAuthenticationPayloadSchema, jobSc
 
 const privateRoutes = express.Router()
 
-// Profile
-privateRoutes.get('/profile', authMiddleware, profileController) // → Get logged-in user profile
-privateRoutes.get('/profile/applications', authMiddleware, profileController) // → Get my applications
-privateRoutes.get('/profile/bookmarks', authMiddleware, profileController) // → Get my bookmarks
-
 // Companies
 privateRoutes.post('/companies', authMiddleware, Validate(companySchema), registerController) // → Create company
 privateRoutes.put('/companies/:id', authMiddleware, updateController) // → Update company

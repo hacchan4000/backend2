@@ -6,7 +6,7 @@ import response from '../utils/response.js';
 export const registerController = async (req, res, next) => {
   try {
     const path = req.path.split('/')[1]
-    const result = await ApiServices.Register(`${path}`,req.validated)
+    const result = await ApiServices.Register(`${path}`,req.body)
     
     return response(res, 201,`User berhasil ditambahkan`,result)
 

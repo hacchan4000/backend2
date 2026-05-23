@@ -4,9 +4,9 @@
 kira kira skenarionya berarti fitur bookmark ini digunakan untuk menyimpan job_id milik user tertentu, biar nanti bisa di apply terhadap job yang sudah kita simpan di bookmarks
  */
 
-import NotFoundError from "../exceptions/notFoundError";
-import { ApiServices } from "../services/api";
-import response from "../utils/response";
+import NotFoundError from "../exceptions/notFoundError.js";
+import { ApiServices } from "../services/api.js";
+import response from "../utils/response.js";
 
 export const bookmarkController = async(req, res, next) => {
   const { jobId,id } = req.params;

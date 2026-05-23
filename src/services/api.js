@@ -16,7 +16,7 @@ export const ApiServices = {
   },
   
   Search: async (tabel, data)=>{
-    if (typeof(data) === 'object') {
+    if (data?.param) {
       return await Repositories.readSpecific(tabel, data)
     }
     return await Repositories.read(tabel, data)
