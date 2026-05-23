@@ -60,10 +60,10 @@ class Repositories {
   }
 
   async readSpecific(tabel, data){
-    const { kolom, id } = data
+    const { param, id } = data
   
     const query = {
-        text: `SELECT * FROM ${tabel} WHERE ${kolom} = ${id}`,
+        text: `SELECT * FROM ${tabel} WHERE ${param} = $1`,
         values: [id]
       };
       const result = await pool.query(query);

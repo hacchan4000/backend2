@@ -8,7 +8,7 @@ export const registerController = async (req, res, next) => {
     const path = req.path.split('/')[1]
     const result = await ApiServices.Register(`${path}`,req.body)
     
-    return response(res, 201,`User berhasil ditambahkan`,result)
+    return response(res, 201,`${path} berhasil ditambahkan`,result)
 
   } catch (error) {
     if (error.code === '23505') {

@@ -24,8 +24,8 @@ export const ApiServices = {
   List: async (tabel)=>{
     return await Repositories.read(tabel)
   },
-  Update:async(tabel, id)=>{
-    return await Repositories.update(tabel, id)
+  Update:async(tabel, id, body)=>{
+    return await Repositories.update(tabel, id, body)
   },
   Delete:async(tabel, id)=>{
     return await Repositories.delete(tabel, id)

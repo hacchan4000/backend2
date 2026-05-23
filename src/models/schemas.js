@@ -33,7 +33,6 @@ export const jobSchema = Joi.object({
   job_type:Joi.string().required(),
   experience_level:Joi.string().required(),
   location_type:Joi.string().required(),
-  is_salary_visible:Joi.boolean().required(),
   status:Joi.string().required(),
 });
 export const applicationSchema = Joi.object({
