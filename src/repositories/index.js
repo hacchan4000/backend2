@@ -44,6 +44,15 @@ class Repositories {
       return user.id;
     }
 
+    if (tabel === 'authentications') {
+      const query = {
+        text: `SELECT * FROM ${tabel} WHERE token = $1`,
+        values: [id]
+      };
+      const result = await pool.query(query);
+      return result.rows[0];
+    }
+
 
     if (id) {
       const query = {

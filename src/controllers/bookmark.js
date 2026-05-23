@@ -22,11 +22,11 @@ export const bookmarkController = async(req, res, next) => {
     return response(res, 200, 'bookmark ketemu', hasil)
   }
   if (req.method === 'POST') {
-    const result = await ApiServices.Register('bookmarks', { juser_id: userId, job_id: jobId })
+    const result = await ApiServices.Register('bookmarks', { user_id: userId, job_id: jobId })
     return response(res, 201, 'bookmark berhasil ditambah', result)
   } 
   if( req.method === 'DELETE') {
-    const deleted = await ApiServices.Delete('bookmarks', { juser_id: userId, job_id: jobId })
+    const deleted = await ApiServices.Delete('bookmarks', { user_id: userId, job_id: jobId })
 
     if (!deleted) {
       return next( new NotFoundError(
@@ -34,6 +34,6 @@ export const bookmarkController = async(req, res, next) => {
           )
         );
     }
-    return response(res, 201, 'bookmark berhasil dihapus', deleted)
+    return response(res, 200, 'bookmark berhasil dihapus', deleted)
   }
 }

@@ -19,7 +19,7 @@ export const authController = {
 
       await ApiServices.Register('authentications', {token: refreshToken})
 
-      return response(res, 201, 'Authentication berhasil ditambahkan', { accessToken,refreshToken })
+      return response(res, 200, 'Authentication berhasil ditambahkan', { accessToken,refreshToken })
     } catch (error) {
       next(error);
     }
@@ -36,7 +36,7 @@ export const authController = {
     const { id } = TokenManager.verifyRefreshToken(refreshToken)
     const newAccessToken = TokenManager.generateAccessToken({ id })
 
-    return response(res, 200, 'Access Token berhasil diperbarui', { newAccessToken })
+    return response(res, 200, 'Access Token berhasil diperbarui', { accessToken: newAccessToken })
   },
   logout: async (req, res, next) => {
     const { refreshToken } = req.validate;
