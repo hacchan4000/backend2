@@ -50,6 +50,10 @@ privateRoutes.post('/documents', authMiddleware ,documentController) // → Uplo
 privateRoutes.delete('/documents/:id', authMiddleware ,documentController)
 
 // Auth
-privateRoutes.delete('/authentications',Validate(deleteAuthenticationPayloadSchema),authController.logout)
+privateRoutes.delete(
+  '/authentications', 
+  authMiddleware, // tu dah dikasi middleware
+  Validate(deleteAuthenticationPayloadSchema),
+  authController.logout)
 
 export default privateRoutes;
