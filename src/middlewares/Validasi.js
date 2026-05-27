@@ -35,3 +35,7 @@ export const validateTable = (tabel) => {
     throw new Error('Invalid table');
   }
 };
+
+export const validateFile = () => {
+  
+}
