@@ -12,6 +12,7 @@ import { searchId, searchIdComplex } from '../controllers/Search.js';
 import { bookmarkController } from '../controllers/bookmark.js';
 import { Validate } from '../middlewares/Validasi.js';
 import { categorySchema, companySchema, deleteAuthenticationPayloadSchema, jobSchema } from '../models/schemas.js';
+import { upload } from '../middlewares/Upload.js';
 
 const privateRoutes = express.Router()
 
@@ -46,7 +47,10 @@ privateRoutes.delete('/jobs/:jobId/bookmark', authMiddleware,bookmarkController)
 privateRoutes.get('/bookmarks', authMiddleware, listAll) // → Get all bookmarks for logged-in user
 
 // Documents
-privateRoutes.post('/documents', authMiddleware ,documentController) // → Upload document (multipart/form-data)
+privateRoutes.post('/documents'
+  ,authMiddleware
+  ,upload.single('document')
+  ,documentController) // → Upload document (multipart/form-data)
 privateRoutes.delete('/documents/:id', authMiddleware ,documentController)
 
 // Auth

@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import bcrypt from 'bcrypt'
 import Repositories from "../repositories/index.js";
+import channel from '../utils/rabbitmq.js';
 
 //services
 export const ApiServices = {
@@ -10,8 +11,18 @@ export const ApiServices = {
     data.id = nanoid(16)
 
     if (data.password) { data.password =await bcrypt.hash(data.password,10); }
+
     const hasil = await Repositories.create(path, data)
     delete hasil.password;
+
+    if (path === 'applications') {
+      await channel.assertQueue('applications')
+
+      channel.sendToQueue(
+        'applications', Buffer.from(JSON.stringify({application_id: hasil.id,}))
+      )
+    }
+    
     return hasil 
   },
   

@@ -21,5 +21,6 @@ app.use(publicRoutes)
 app.use(privateRoutes)
 //custom middleware di tingkat app/global
 app.use(ErrorHandler)
+app.use('/uploads', express.static('src/uploads'));
 
 export default app;

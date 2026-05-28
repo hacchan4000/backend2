@@ -1,12 +1,24 @@
 import NotFoundError from "../exceptions/notFoundError.js";
 import { ApiServices } from "../services/api.js";
+import redisClient from "../utils/redis.js";
 import response from "../utils/response.js";
+
 
 export const searchId = async (req, res, next) => {
   try {
     const { id } = req.params
     const path = req.path.split('/')[1]
+
+    const cacheKey = `${path}:${id}`
+    const cache = await redisClient.get(cacheKey);
+    
+    if (cache) {
+      res.set('X-Data-Source', 'cache');
+      return response(response, 200, 'data dr cache', JSON.parse(cache))
+    }
+
     const hasil = await ApiServices.Search(path,id)
+    await redisClient.setEx(cacheKey, 3600, JSON.parse(cache))
 
     if (!hasil) {
       return next(new NotFoundError('Gagal mencari user'))

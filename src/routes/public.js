@@ -20,7 +20,7 @@ publicRoutes.get('/users/:id', searchId)
 
 //companies
 publicRoutes.get('/companies', listAll)
-publicRoutes.get('/companies/:id', searchId)
+publicRoutes.get('/companies/:id', searchId) // cache endpoint
 
 //categories
 publicRoutes.get('/categories', listAll)
