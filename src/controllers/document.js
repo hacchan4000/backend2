@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 export const documentController = async(req, res, next) => {
   try {
     if (!req.file) {
-      return next(new InvariantError('file g ketemu'))
+      return next(new InvariantError('File is required'))
     }
 
     const data = {

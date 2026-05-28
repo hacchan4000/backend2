@@ -11,14 +11,15 @@ export const searchId = async (req, res, next) => {
 
     const cacheKey = `${path}:${id}`
     const cache = await redisClient.get(cacheKey);
-    
+
     if (cache) {
       res.set('X-Data-Source', 'cache');
+      await redisClient.setEx(cacheKey, 3600, JSON.parse(cache))
       return response(response, 200, 'data dr cache', JSON.parse(cache))
     }
 
     const hasil = await ApiServices.Search(path,id)
-    await redisClient.setEx(cacheKey, 3600, JSON.parse(cache))
+    //
 
     if (!hasil) {
       return next(new NotFoundError('Gagal mencari user'))
