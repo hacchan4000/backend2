@@ -1,4 +1,4 @@
-// konfigurasi utama express
+// konfigurasi utama express app.js
 import express from 'express';
 import { ErrorHandler } from './middlewares/Error.js';
 import publicRoutes from './routes/public.js';
@@ -16,11 +16,10 @@ app.use(express.urlencoded({ extended: true })) // ini utk parsing payload URL-e
  * Mengakhiri siklus request-response (misalnya dengan mengirim respons ke klien).
  * Meneruskan ke middleware berikutnya dengan memanggil fungsi next()
  */
-
+app.use('/uploads', express.static('src/uploads'));
 app.use(publicRoutes)
 app.use(privateRoutes)
 //custom middleware di tingkat app/global
 app.use(ErrorHandler)
-app.use('/uploads', express.static('src/uploads'));
 
 export default app;

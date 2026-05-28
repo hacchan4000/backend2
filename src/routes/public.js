@@ -5,6 +5,7 @@ import { searchId, searchIdComplex } from "../controllers/Search.js"
 import { listAll } from "../controllers/List.js"
 import { authController } from "../controllers/auth.js"
 import { Validate } from "../middlewares/Validasi.js"
+import { documentController } from "../controllers/document.js"
 
 
 /**
@@ -38,6 +39,6 @@ publicRoutes.put('/authentications', Validate(putAuthenticationPayloadSchema), a
 
 //docs
 publicRoutes.get('/documents', listAll)
-publicRoutes.get('/documents/:id', searchId)
+publicRoutes.get('/documents/:id', documentController.getDocumentById)
 
 export default publicRoutes

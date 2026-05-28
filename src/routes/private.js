@@ -3,7 +3,6 @@ import express from 'express';
 import { authMiddleware } from '../middlewares/Auth.js';
 import { registerController } from "../controllers/registers.js"
 import { listAll } from '../controllers/List.js';
-import { profileController } from '../controllers/profile.js';
 import { updateController } from '../controllers/update.js';
 import { deleteController } from '../controllers/delete.js';
 import { documentController } from '../controllers/document.js';
@@ -47,11 +46,8 @@ privateRoutes.delete('/jobs/:jobId/bookmark', authMiddleware,bookmarkController)
 privateRoutes.get('/bookmarks', authMiddleware, listAll) // → Get all bookmarks for logged-in user
 
 // Documents
-privateRoutes.post('/documents'
-  ,authMiddleware
-  ,upload.single('document')
-  ,documentController) // → Upload document (multipart/form-data)
-privateRoutes.delete('/documents/:id', authMiddleware ,documentController)
+privateRoutes.post('/documents', authMiddleware, upload.single('document'), documentController.upload)
+privateRoutes.delete('/documents/:id', authMiddleware ,documentController.delete)
 
 // Auth
 privateRoutes.delete(
