@@ -1,4 +1,4 @@
-import ClientError from '../exceptions/ClientError.js';
+import ClientError from './clientError.js';
 
 class InvariantError extends ClientError {
   constructor(pesan){

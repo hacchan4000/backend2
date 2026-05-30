@@ -1,7 +1,7 @@
 class ClientError extends Error {
   constructor (pesan, httpCode = 400){
     super(pesan);
-    this.name = 'clientError';
+    this.name = 'ClientError';
     this.httpCode=httpCode;
   }
 }
