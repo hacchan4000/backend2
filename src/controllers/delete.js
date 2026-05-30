@@ -10,7 +10,7 @@ export const deleteController = async(req, res, next) => {
 
       
       if (!hasil) {
-        next(new NotFoundError('id g ketemu'));
+        return next(new NotFoundError('id g ketemu'));
       }
   
       return response(res, 200,`berhasil hapus ${path}`,hasil)

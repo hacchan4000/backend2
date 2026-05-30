@@ -9,7 +9,7 @@ export const registerController = async (req, res, next) => {
     const path = req.path.split('/')[1]
     let payload = req.body;
     
-    if (path === 'companies' || 'categories') {
+    if (path === 'companies' || path === 'categories' || path === 'applications') {
      payload = {
         ...req.body,
         user_id: req.user.id

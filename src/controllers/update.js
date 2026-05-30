@@ -9,6 +9,10 @@ export const updateController = async (req, res, next) => {
     const { id } = req.params
     const path = req.path.split('/')[1]
     const hasil = await ApiServices.Update(path,id, req.body)
+
+    if (!hasil) {
+      return next(new NotFoundError('id g ketemu'));
+    }
     if (path === 'applications') {
 
       await redisClient.del(
@@ -18,10 +22,6 @@ export const updateController = async (req, res, next) => {
       await redisClient.del(
         `applications:job_id:${hasil.job_id}`
       );
-    }
-
-    if (!hasil) {
-      next(new NotFoundError('id g ketemu'));
     }
 
     return response(res, 200,`berhasil update ${path}`,hasil)

@@ -79,21 +79,36 @@ class Repositories {
       return result.rows;
   }
 
-  async update(tabel, id, body){
-    validateTable(tabel)
-    const keys = Object.keys(body);
-    const values = Object.values(body);
+  async update(tabel,id,body){
 
-    const setQuery = keys.map((key, i) => `${key} = $${i + 1}`).join(', ');
-    const kueri = {
-      text:`UPDATE ${tabel} SET ${setQuery} WHERE id = $${keys.length + 1} RETURNING *`,
-      values:[...values, id]
-    }
+  const keys=Object.keys(body);
+  const values=Object.values(body);
 
-    const res = await pool.query(kueri)
-    return res.rows[0]
-    
-  }
+  const setQuery=
+  keys
+   .map(
+      (key,i)=>
+      `${key}=$${i+1}`
+   )
+   .join(', ');
+
+  const query={
+      text:`
+      UPDATE ${tabel}
+      SET ${setQuery}
+      WHERE id=$${keys.length+1}
+      RETURNING *
+      `,
+      values:[
+         ...values,
+         id
+      ]
+  };
+
+  const result=await pool.query(query);
+
+  return result.rows[0];
+}
   async delete(tabel, id){
     validateTable(tabel)
     

@@ -8,6 +8,8 @@ export const shorthands = undefined;
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
+
+
 export const up = (pgm) => {
   pgm.createTable('categories',{
     id:{ type: 'VARCHAR(50)', primaryKey: true},
@@ -16,6 +18,7 @@ export const up = (pgm) => {
     created_at:{ type: 'TIMESTAMP', notNull: true, default:pgm.func('current_timestamp'),}
   })
 };
+
 
 /**
  * @param pgm {import('node-pg-migrate').MigrationBuilder}
