@@ -7,14 +7,11 @@ import response from "../utils/response.js"
 export const listAll = async (req, res, next) => {
   try {
     const path = req.path.split('/')[1]
-    const userId = req.user.id
+    const userId = req.user?.id ?? null
 
     const cacheKey = path === 'bookmarks' ? `${path}:${userId}` : path
-     const cache = await redisClient.get(cacheKey);
+    const cache = await redisClient.get(cacheKey);
 
-    // =========================
-    // CACHE HIT
-    // =========================
     if (cache) {
       res.set('X-Data-Source', 'cache');
       return response(res,200,'Berhasil ambil data',JSON.parse(cache));
