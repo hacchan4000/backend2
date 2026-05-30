@@ -13,15 +13,20 @@ export const updateController = async (req, res, next) => {
     if (!hasil) {
       return next(new NotFoundError('id g ketemu'));
     }
+    
+    if (path === 'companies') {
+        await redisClient.del(`companies:${id}`);
+        await redisClient.del(`companies`);
+    }
+
+    if (path === 'categories') {
+        await redisClient.del(`categories`);
+    }
+
     if (path === 'applications') {
-
-      await redisClient.del(
-        `applications:user_id:${hasil.user_id}`
-      );
-
-      await redisClient.del(
-        `applications:job_id:${hasil.job_id}`
-      );
+        await redisClient.del(`applications:${id}`);
+        await redisClient.del(`applications:user_id:${hasil.user_id}`);
+        await redisClient.del(`applications:job_id:${hasil.job_id}`);
     }
 
     return response(res, 200,`berhasil update ${path}`,hasil)

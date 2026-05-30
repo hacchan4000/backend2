@@ -23,12 +23,21 @@ export const registerController = async (req, res, next) => {
       await redisClient.del(
         `applications:user_id:${result.user_id}`
       );
-
       await redisClient.del(
         `applications:job_id:${result.job_id}`
       );
     }
-    
+
+    if (path === 'companies' || path === 'categories') {
+      await redisClient.del(`${path}`);
+    }
+
+    if (path === 'bookmarks') {
+      await redisClient.del(
+        `bookmarks:${hasil.user_id}`
+      );
+    }
+        
     return response(res, 201,`${path} berhasil ditambahkan`,result)
 
   } catch (error) {
