@@ -11,7 +11,9 @@ export const shorthands = undefined;
 export const up = (pgm) => {
   pgm.createTable('categories',{
     id:{ type: 'VARCHAR(50)', primaryKey: true},
+    user_id:{ type: 'VARCHAR(50)', notNull: true ,references: 'users(id)', onDelete: 'CASCADE',},
     name:{ type: 'TEXT', notNull: true},
+    created_at:{ type: 'TIMESTAMP', notNull: true, default:pgm.func('current_timestamp'),}
   })
 };
 

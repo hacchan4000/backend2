@@ -7,7 +7,16 @@ import response from '../utils/response.js';
 export const registerController = async (req, res, next) => {
   try {
     const path = req.path.split('/')[1]
-    const result = await ApiServices.Register(`${path}`,req.body)
+    let payload = req.body;
+    
+    if (path === 'companies' || 'categories') {
+     payload = {
+        ...req.body,
+        user_id: req.user.id
+      };
+     
+    }
+    const result = await ApiServices.Register(`${path}`,payload)
 
     if (path === 'applications') {
 
